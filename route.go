@@ -34,8 +34,9 @@ func getPosts(resp http.ResponseWriter, req *http.Request) {
 
 // function to add the new post 
 func addPosts(resp http.ResponseWriter, req *http.Request) {
+	resp.Header().Set("content-type", "application/json")
 	var post Post 	// variable post is of type Post struct 
-	err := json.NewDecoder(req.Body).Decode(&posts)
+	err := json.NewDecoder(req.Body).Decode(&post)
 	if err != nil {
 		resp.WriteHeader(http.StatusInternalServerError)
 		resp.Write([]byte(`{"error" : "error unmarshalling the request"}`))
